@@ -17,8 +17,8 @@ fn priority(item: u8) -> u32 {
     }
 }
 
-/// Finds duplicate items found in the first half and the second half of each line,
-/// and sums their priority values.
+/// Finds duplicate items in the first and second halves of each line,
+/// then sums their priority values.
 fn duplicates<E>(lines: E) -> u32 where E: Iterator<Item = String> {
     lines
         .map(|line| line.into_bytes())
@@ -33,7 +33,7 @@ fn duplicates<E>(lines: E) -> u32 where E: Iterator<Item = String> {
         .sum()
 }
 
-/// Finds duplicate items found in 3 consecutive lines, and sums their priority values.
+/// Finds duplicate items in each chunk of 3 consecutive lines, then sums their priority values.
 fn badges<E>(lines: E) -> u32 where E: Iterator<Item = String> {
     lines
         .map(|line| line.into_bytes())
@@ -41,6 +41,7 @@ fn badges<E>(lines: E) -> u32 where E: Iterator<Item = String> {
         .into_iter()
         .map(|chunk| {
             let mut items = chunk.map(|sack| HashSet::<u8>::from_iter(sack)).collect::<Vec<_>>();
+            assert_eq!(items.len(), 3);
             let mut badges = items.pop().unwrap();
             // .intersection() will not easily work iteratively for 3 sets:
             badges.retain(|item| items[0].contains(item) && items[1].contains(item));
