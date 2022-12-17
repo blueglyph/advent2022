@@ -14,7 +14,7 @@ pub fn day07() {
 }
 
 #[derive(Debug)]
-struct Node {
+pub struct Node {
     pub name: String,
     pub size: u32,
     pub dirs: Vec<Node>
@@ -26,7 +26,7 @@ impl Node {
     }
 
     /// Walks through all the nodes and executes `f` on each of them.
-    fn walk<F>(&self, mut f: F) where F: FnMut(&Node) {
+    pub fn walk<F>(&self, mut f: F) where F: FnMut(&Node) {
         let mut stack = Vec::<&Node>::new();
         stack.push(self);
         while !stack.is_empty() {
@@ -43,7 +43,7 @@ impl Node {
 fn parse<E>(lines: E) -> Node
     where E: Iterator<Item = String>
 {
-    //                     stack = (/, 0, [])
+    // cd /             -> stack = (/, 0, [])
     // cd a             -> stack = (/, 0, []), (a, 0, [])
     // 1                -> stack = (/, 0, []), (a, 1, [])
     // 2                -> stack = (/, 0, []), (a, 3, [])
