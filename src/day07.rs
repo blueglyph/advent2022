@@ -14,7 +14,7 @@ pub fn day07() {
 }
 
 #[derive(Debug)]
-pub struct Node {
+struct Node {
     pub name: String,
     pub size: u32,
     pub dirs: Vec<Node>
